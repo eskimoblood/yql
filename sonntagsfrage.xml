@@ -6,17 +6,21 @@
   <bindings>
     <select itemPath="" produces="XML">
       <urls>
-        <url>http://www.wahlrecht.de/umfragen/landtage/{a}</url>
+        <url></url>Ì
       </urls>
       <inputs>
-        <key id='a' type='xs:string' paramType='variable' required="true" />
+        <key id='bundesland' type='xs:string' paramType='variable' required="true" />
       </inputs>
       <execute><![CDATA[
           // Your javascript goes here. We will run it on our servers
           response.object = <item>
-                   <url>{request.url}</url>
-                   <a>{a}</a>
+                   grabDate({bundeslandl})
                 </item>;
+				var grabDate = function(bundesland) {
+					bundesland = bundesland.replace(/ /, '-').replace(/ü/, 'ue');
+					var html = 'http://www.wahlrecht.de/umfragen/landtage/' + bundesland + 'htm'; 
+					y.query();
+				}
       ]]></execute>
     </select>
   </bindings>
