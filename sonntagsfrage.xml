@@ -13,7 +13,7 @@
       </inputs>
       <execute><![CDATA[
           // Your javascript goes here. We will run it on our servers
-          		response.object =  grabDate({bundesland});
+          		response.object = new grabDate({bundesland});
 				var grabDate = function(bundesland) {
 					var url = 'http://www.wahlrecht.de/umfragen/landtage/' + bundesland + '.htm'; 
 					return y.query("select * from html where url = '" + url + "' and xpath=\"//tr\"");
