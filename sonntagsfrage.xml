@@ -6,7 +6,7 @@
   <bindings>
     <select itemPath="" produces="XML">
       <urls>
-        <url></url>Ì
+        <url></url>
       </urls>
       <inputs>
         <key id='bundesland' type='xs:string' paramType='variable' required="true" />
