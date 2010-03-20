@@ -13,9 +13,7 @@
       </inputs>
       <execute><![CDATA[
           // Your javascript goes here. We will run it on our servers
-          response.object = <item>
-                   grabDate({bundesland})
-                </item>;
+          		response.object =  grabDate({bundesland});
 				var grabDate = function(bundesland) {
 					bundesland = bundesland.replace(/ /, '-').replace(/ü/, 'ue');
 					var html = 'http://www.wahlrecht.de/umfragen/landtage/' + bundesland + 'htm'; 
