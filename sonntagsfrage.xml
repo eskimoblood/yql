@@ -14,7 +14,7 @@
       <execute><![CDATA[
           // Your javascript goes here. We will run it on our servers
           response.object = <item>
-                   grabDate({bundeslandl})
+                   grabDate({bundesland})
                 </item>;
 				var grabDate = function(bundesland) {
 					bundesland = bundesland.replace(/ /, '-').replace(/ü/, 'ue');
