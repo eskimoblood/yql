@@ -1,14 +1,51 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">                
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title>untitled</title>
 	<script type="text/javascript">
-		console.log(http://query.yahooapis.com/v1/public/yql?q=use%20%22http%3A%2F%2Fgithub.com%2Feskimoblood%2Fyql%2Fsonntagsfrage.xml%22%3Bselect%20*%20from%20url%3B%0A&format=json&diagnostics=false&callback=cbfunc)
+		function cbfunc(json){
+			console.log(json);
+			var keys = [], 
+				isParty = [],
+				ths = json.query.results.result.head.results.tr.th,
+				tds = json.query.results.result.body.results.tr,
+				i, j, k, l = ths.length,
+				results = {},
+				dateColumn;
+			for (i = 0; i < l; i++) {
+				var key = ths[i].p
+				keys.push(key)
+				isParty.push(key.toLowerCase().match(/spd|cdu|fdp|gr\ufffdne|linke|sonstige/) != null);
+				if(ths[i].p === 'Datum') dateColumn = i;
+			}
+			
+			for (i = 0, l= tds.length; i<l; i++) {
+				var td = tds[i].td,
+					r  = {parties: {}, meta: {}},
+					dateString = td[dateColumn].p.split('.'),
+					date = new Date(dateString[2],dateString[1],dateString[0]).getTime();
+					
+					
+				for (j = 0, k = td.length; j < k; j++) {
+					var key = keys[j];
+					if(j!=dateColumn && key){
+						var value  = td[j].p || td[j].a || '';
+						r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
+					}
+				}
+				results[date] = r;
+			}
+			console.log(results)
+		}
 	</script>
+	<script type="text/javascript" src="http://query.yahooapis.com/v1/public/yql?q=use%20%20%22http%3A%2F%2Fgithub.com%2Feskimoblood%2Fyql%2Fraw%2Fmaster%2Fsonntagsfrage.xml%22%3B%20select%20*%20from%20sonntagsfrage%20where%20bundesland%3D%22berlin%22&format=json&callback=cbfunc">
+	
+	</script>
+
 	
 </head>
 

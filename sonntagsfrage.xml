@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
   <meta>
-    <sampleQuery>select * from {table} where a='cat' and b='dog';</sampleQuery>
+    <sampleQuery>select * from {table} where bundesland='berlin';</sampleQuery>
   </meta>
   <bindings>
     <select itemPath="" produces="XML">
@@ -23,9 +23,9 @@
 				
 				var getTrs = function(typ) {
 					var url = 'http://www.wahlrecht.de/umfragen/landtage/' + bundesland + '.htm'; 
-					return y.xmlToJson(y.query("select * from html where url = '" + url + "' and xpath=\"//" + typ +"/tr\"").results);
+					return y.xmlToJson(y.query("select * from html where url = '" + url + "' and xpath=\"//" + typ +"/tr\"").results).results.tr;
 				} 
-				y.log(grabDate())
+
 				response.object =  grabDate();
       ]]></execute>
     </select>
