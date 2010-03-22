@@ -53,10 +53,10 @@
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
 								continue;
 							}
-							isParty = isParty[j]
-							if (j != dateColumn && key != '\u00a0' && (metadata || isParty)) {
+							
+							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[j])) {
 								var value  = td[j].p || td[j].a || '';
-								r[isParty ? 'parties' : 'meta'][key] = value.content || value;
+								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
 							}
 						}
 						results[date] = r;
