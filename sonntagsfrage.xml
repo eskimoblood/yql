@@ -25,7 +25,7 @@
 						dateColumn;
 
 					for (i = 0; i < l; i++) {
-						key = ths[i].p;
+						key = ths[i].p.toString();
 						keys.push(key);
 						isParty.push(key.toLowerCase().match(/spd|cdu|fdp|grüne|linke|sonstige/) != null);
 						if(ths[i].p === 'Datum') dateColumn = i;
@@ -40,7 +40,7 @@
 							key = keys[j];
 							if (j != dateColumn && key) {
 								var value  = td[j].p || td[j].a || '';
-								
+								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
 							}
 						}
 						results[date] = r;
