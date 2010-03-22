@@ -61,7 +61,7 @@
 						}
 						results.push(r);
 					}
-					return results;
+					return {result:results};
 				}
 
 				var grabData = function() {
