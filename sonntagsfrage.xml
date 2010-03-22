@@ -45,12 +45,13 @@
 						}
 						results[date] = r;
 					}
+					y.log(results);
 					return results;
 				}
 
 				var grabData = function() {
 					var r = {};
-					y.log(getTrs('thead'));
+
 					r.head = getTrs('thead').th,
 					r.body = getTrs('tbody');
 					return r;
