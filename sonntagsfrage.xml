@@ -43,7 +43,7 @@
 							key = keys[j];
 							if(td[j].colspan) {
 							y.log(td[j]);
-								var string = td[i].content;
+								var string = td[j].content;
 								r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[date.length-1].split('.');
