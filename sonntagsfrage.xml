@@ -13,20 +13,54 @@
       </inputs>
       <execute><![CDATA[
           // Your javascript goes here. We will run it on our servers
-          		
-				var grabDate = function() {
+          		var process = function(){
+          			var json = grabData(),
+						keys = [],
+						key,
+						isParty = [],
+						ths = json.head,
+						tds = json.body,
+						i, j, k, l = ths.length,
+						results = {},
+						dateColumn;
+
+					for (i = 0; i < l; i++) {
+						key = ths[i].p
+						keys.push(key)
+						isParty.push(key.toLowerCase().match(/spd|cdu|fdp|gr\ufffdne|linke|sonstige/) != null);
+						if(ths[i].p === 'Datum') dateColumn = i;
+					}
+
+					for (i = 0, l= tds.length; i<l; i++) {
+						var td = tds[i].td,
+							r  = {parties: {}, meta: {}},
+							dateString = td[dateColumn].p.split('.'),
+							date = new Date(dateString[2], dateString[1], dateString[0]).getTime();
+						for (j = 0, k = td.length; j < k; j++) {
+							key = keys[j];
+							if (j != dateColumn && key) {
+								var value  = td[j].p || td[j].a || '';
+								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
+							}
+						}
+						results[date] = r;
+					}
+					return result;
+				}
+
+				var grabData = function() {
 					var r = {};
 					result.head = getTrs('thead').results.tr.th,
 					result.body = getTrs('tbody').results.tr;
 					return r;
 				}
-				
+
 				var getTrs = function(typ) {
 					var url = 'http://www.wahlrecht.de/umfragen/landtage/' + bundesland + '.htm'; 
 					return y.xmlToJson(y.query("select * from html where url = '" + url + "' and xpath=\"//" + typ +"/tr\"").results).results.tr;
 				} 
 
-				response.object =  grabDate();
+				response.object =  process();
       ]]></execute>
     </select>
   </bindings>
