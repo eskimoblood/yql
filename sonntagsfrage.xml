@@ -25,23 +25,22 @@
 						dateColumn;
 
 					for (i = 0; i < l; i++) {
-						key = ths[i].p.toString();
+						key = ths[i].p;
 						keys.push(key);
-						isParty.push(key.toLowerCase().match(/spd|cdu|fdp|grüne|linke|sonstige/) != null);
+						 isParty.push(key.toLowerCase().match(/spd|cdu|fdp|grüne|linke|sonstige/) != null);
 						if(ths[i].p === 'Datum') dateColumn = i;
 					}
 
 					for (i = 0, l= tds.length; i<l; i++) {
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}},
-							dateString = td[dateColumn].p.toString().split(/./),
+							dateString = td[dateColumn].p.split('.'),
 							date = new Date(dateString[2], dateString[1], dateString[0]).getTime();
 						for (j = 0, k = td.length; j < k; j++) {
-							key = keys[j].toString();
-							if (j != dateColumn && key) {
+							key = keys[j];
+							if (j != dateColumn && key != '\u00a0') {
 								var value  = td[j].p || td[j].a || '';
-								y.log(key);
-								r[isParty[j] ? 'parties' : 'meta'][key] = 'test';
+								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
 							}
 						}
 						results[date] = r;
