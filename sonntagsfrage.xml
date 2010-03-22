@@ -46,7 +46,7 @@
 								var string = td[j].content;
 								r.meta = {Quelle: string};
 								string = string.split(' ');
-								string = string[date.length-1].split('.');
+								string = string[string.length-1].split('.');
 								date = new Date(string[2], string[1], string[0]).getTime();
 								j += td[i].colspan;
 							}
