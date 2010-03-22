@@ -16,8 +16,8 @@
           		
 				var grabDate = function() {
 					var result = {};
-					result.head = getTrs('thead'),
-					result.body = getTrs('tbody');
+					result.head = getTrs('thead').results.tr.th,
+					result.body = getTrs('tbody').results.tr;
 					return result;
 				}
 				
