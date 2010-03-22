@@ -49,11 +49,10 @@
 								string = string[string.length-1].split('.');
 								date = new Date(string[2], string[1], string[0]).getTime();
 								y.log(date);
-								j += td[j].colspan;
-								y.log(j);
 								continue;
 							}
 							if (j != dateColumn && key != '\u00a0') {
+							y.log(td[j]);
 								var value  = td[j].p || td[j].a || '';
 								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
 							}
