@@ -45,18 +45,14 @@
 							key = keys[j];
 							
 							if(td[j].colspan) {
-								y.log(td[j].colspan);
-								var c = parseInt(td[j].colspan, 10);
-								y.log(k);
-								k += c;
-								y.log(k);
+								k += td[j].colspan;
 								var string = td[j].p;
 								if(metadata) r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
 								
-								continue;
+								k > tds.length ? break :continue;
 							}
 						
 							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[j])) {
