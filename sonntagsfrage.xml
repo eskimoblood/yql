@@ -51,6 +51,7 @@
 								y.log(date);
 								j += td[j].colspan;
 								y.log(j);
+								continue;
 							}
 							if (j != dateColumn && key != '\u00a0') {
 								var value  = td[j].p || td[j].a || '';
