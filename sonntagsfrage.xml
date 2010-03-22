@@ -23,7 +23,7 @@
 						ths = json.head,
 						tds = json.body,
 						i, j, k, l = ths.length,
-						results = {},
+						results = [],
 						dateColumn,
 						isParty;
 
@@ -39,8 +39,8 @@
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}},
 							dateString = td[dateColumn].p.split('.'),
-							date = 'D' + dateString[2] + '.' + dateString[1] + '.' + dateString[0];
-
+							date = dateString[2] + '.' + dateString[1] + '.' + dateString[0];
+							r.date = date;
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];
 	
@@ -59,7 +59,7 @@
 								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
 							}
 						}
-						results[date] = r;
+						results.push(r);
 					}
 					return results;
 				}
