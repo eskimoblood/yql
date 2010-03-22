@@ -15,10 +15,10 @@
           // Your javascript goes here. We will run it on our servers
           		
 				var grabDate = function() {
-					var result = {};
+					var r = {};
 					result.head = getTrs('thead').results.tr.th,
 					result.body = getTrs('tbody').results.tr;
-					return result;
+					return r;
 				}
 				
 				var getTrs = function(typ) {
