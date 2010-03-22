@@ -45,7 +45,7 @@
 						}
 						results[date] = r;
 					}
-					return result;
+					return results;
 				}
 
 				var grabData = function() {
