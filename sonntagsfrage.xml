@@ -49,7 +49,7 @@
 								date = new Date(string[2], string[1], string[0]).getTime();
 								j += td[i].colspan;
 							}
-							if (j != dateColumn && key != '\u00a0' && (!meta)) {
+							if (j != dateColumn && key != '\u00a0') {
 								var value  = td[j].p || td[j].a || '';
 								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
 							}
