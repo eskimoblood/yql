@@ -2,6 +2,7 @@
 <table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
   <meta>
     <sampleQuery>select * from {table} where bundesland='berlin';</sampleQuery>
+	<author>Andreas Köberle</author>
   </meta>
   <bindings>
     <select itemPath="" produces="XML">
@@ -23,7 +24,8 @@
 						tds = json.body,
 						i, j, k, l = ths.length,
 						results = {},
-						dateColumn;
+						dateColumn,
+						isParty;
 
 					for (i = 0; i < l; i++) {
 						key = ths[i].p.toString();
@@ -41,6 +43,7 @@
 
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];
+							isParty = isParty[j]
 							if(td[j].colspan) {
 
 								var string = td[j].p;
@@ -50,9 +53,10 @@
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
 								continue;
 							}
-							if (j != dateColumn && key != '\u00a0') {
+							
+							if (j != dateColumn && key != '\u00a0' && (metadata || isParty)) {
 								var value  = td[j].p || td[j].a || '';
-								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
+								r[isParty ? 'parties' : 'meta'][key] = value.content || value;
 							}
 						}
 						results[date] = r;
