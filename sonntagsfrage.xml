@@ -43,16 +43,15 @@
 
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];
-							y.log(k)
-							if(td[j].colspan) {
+	
+							if(key && td[j].colspan) {
 								k += parseInt(td[j].colspan, 10);
 								var string = td[j].p;
 								if(metadata) r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
-								
-								if(j > k) {break}else{continue}  ;
+				
 							}
 						
 							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[j])) {
