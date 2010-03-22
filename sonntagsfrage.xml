@@ -44,8 +44,8 @@
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];
 	
-							if(td[j] && td[j].colspan) {
-								k += parseInt(td[j].colspan, 10);
+							if (td[j].colspan) {
+								j += parseInt(td[j].colspan, 10);
 								var string = td[j].p;
 								if(metadata) r.meta = {Quelle: string};
 								string = string.split(' ');
