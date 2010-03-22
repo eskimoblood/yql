@@ -43,7 +43,7 @@
 
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];
-							isParty = isParty[j]
+			
 							if(td[j].colspan) {
 
 								var string = td[j].p;
@@ -53,7 +53,7 @@
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
 								continue;
 							}
-							
+							isParty = isParty[j]
 							if (j != dateColumn && key != '\u00a0' && (metadata || isParty)) {
 								var value  = td[j].p || td[j].a || '';
 								r[isParty ? 'parties' : 'meta'][key] = value.content || value;
