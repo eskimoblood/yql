@@ -37,7 +37,7 @@
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}},
 							dateString = td[dateColumn].p.split('.'),
-							date = dateString[2] + '.' + dateString[1] + '.' + dateString[0];
+							date = 'D' + dateString[2] + '.' + dateString[1] + '.' + dateString[0];
 
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];
@@ -47,8 +47,7 @@
 								r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
-								date = string[2] + '.' + string[1] + '.' + string[0];
-								y.log(date);
+								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
 								continue;
 							}
 							if (j != dateColumn && key != '\u00a0') {
@@ -58,7 +57,6 @@
 						}
 						results[date] = r;
 					}
-					y.log(results);
 					return results;
 				}
 
