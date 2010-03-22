@@ -52,7 +52,7 @@
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
 								
-								k > tds.length ? break :continue;
+								if(k > tds.length) {break}else{continue}  ;
 							}
 						
 							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[j])) {
