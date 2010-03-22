@@ -43,7 +43,7 @@
 
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];
-							
+							log(k)
 							if(td[j].colspan) {
 								k += td[j].colspan;
 								var string = td[j].p;
