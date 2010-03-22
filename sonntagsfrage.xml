@@ -46,7 +46,7 @@
 							
 							if(td[j].colspan) {
 								y.log(td[j].colspan);
-								var c = parseInt(td[j].colspan);
+								var c = parseInt(td[j].colspan, 10);
 								y.log(k);
 								k += c;
 								y.log(k);
