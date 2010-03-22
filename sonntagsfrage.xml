@@ -37,7 +37,7 @@
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}},
 							dateString = td[dateColumn].p.split('.'),
-							date = new Date(dateString[2], dateString[1], dateString[0]).getTime();
+							date = dateString[2] + '.' + dateString[1] + '.' + dateString[0];
 
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];
@@ -47,12 +47,11 @@
 								r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
-								date = new Date(string[2], string[1], string[0]).getTime();
+								date = string[2] + '.' + string[1] + '.' + string[0];
 								y.log(date);
 								continue;
 							}
 							if (j != dateColumn && key != '\u00a0') {
-							y.log(td[j]);
 								var value  = td[j].p || td[j].a || '';
 								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
 							}
