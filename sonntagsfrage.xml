@@ -46,7 +46,8 @@
 							
 							if(td[j].colspan) {
 								y.log(td[j].colspan);
-								k += td[j].colspan;
+								var c = td[j].colspan;
+							//	k += td[j].colspan;
 								var string = td[j].p;
 								r.meta = {Quelle: string};
 								string = string.split(' ');
