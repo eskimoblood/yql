@@ -25,7 +25,7 @@
 						dateColumn;
 
 					for (i = 0; i < l; i++) {
-						key = ths[i].p;
+						key = ths[i].p.toString().replace(/GR\\ufffdNE/, GRÜNE).replace(/\\u00a0/, '');
 						keys.push(key);
 						 isParty.push(key.toLowerCase().match(/spd|cdu|fdp|grüne|linke|sonstige/) != null);
 						if(ths[i].p === 'Datum') dateColumn = i;
