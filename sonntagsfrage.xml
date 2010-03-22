@@ -50,6 +50,7 @@
 
 				var grabData = function() {
 					var r = {};
+					y.log(getTrs('thead'));
 					r.head = getTrs('thead').results.tr.th,
 					r.body = getTrs('tbody').results.tr;
 					return r;
