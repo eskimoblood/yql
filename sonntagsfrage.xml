@@ -40,7 +40,7 @@
 							key = keys[j].toString();
 							if (j != dateColumn && key) {
 								var value  = td[j].p || td[j].a || '';
-								r[isParty[j] ? 'parties' : 'meta'][key] = 'test';
+								r[isParty[j] ? 'parties' : 'meta']= 'test';
 							}
 						}
 						results[date] = r;
