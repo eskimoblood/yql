@@ -36,7 +36,13 @@
 							r  = {parties: {}, meta: {}},
 							dateString = td[dateColumn].p.toString().split(/./),
 							date = new Date(dateString[2], dateString[1], dateString[0]).getTime();
-						
+						for (j = 0, k = td.length; j < k; j++) {
+							key = keys[j];
+							if (j != dateColumn && key) {
+								var value  = td[j].p || td[j].a || '';
+								
+							}
+						}
 						results[date] = r;
 					}
 					y.log(results);
