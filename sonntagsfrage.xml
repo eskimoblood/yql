@@ -37,10 +37,10 @@
 							dateString = td[dateColumn].p.toString().split(/./),
 							date = new Date(dateString[2], dateString[1], dateString[0]).getTime();
 						for (j = 0, k = td.length; j < k; j++) {
-							key = keys[j];
+							key = keys[j].toString();
 							if (j != dateColumn && key) {
 								var value  = td[j].p || td[j].a || '';
-								
+								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
 							}
 						}
 						results[date] = r;
