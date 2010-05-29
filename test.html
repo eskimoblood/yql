@@ -25,21 +25,26 @@
 			parties = ['SPD', 'CDU', 'GRÜNE', 'FDP', 'LINKE'],
 			result = json.query.results.result.result,
 			length = result.length;
-		data.addColumn('datetime', 'Datum');
+		data.addColumn('string', 'Datum');
 		for(var i=0; i<5; i++) {
 			data.addColumn('number', parties[i]);	
 		}
 		data.addRows(length);
-		for(i=0; i < length; i++) {
+		for(i=length-1; i > -1; i--) {
+			if(result[i].date != 'Invalid Date') {
 			data.setValue(i, 0, result[i].date);
 			var resultParties = result[i].parties
 			for(var j=0; j<5; j++) {
-				data.setValue(i, j+1, parseInt(resultParties[parties[j]]));
+				var value =  parseInt(resultParties[parties[j]]);
+
+				if(value) 	data.setValue(i, j+1, value);
+			
+			}
 			}
 		}
 		console.log(data)
 		var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-		        chart.draw(data, {width: 400, height: 240, title: 'Company Performance'});    
+		        chart.draw(data, {width: 1000, height: 240, title: 'Company Performance', reverseAxis:true, pointSize: 1, lineSize:1});    
 	}
 	   </script>
 	

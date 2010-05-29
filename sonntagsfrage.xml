@@ -56,7 +56,9 @@
 						
 							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[j])) {
 								var value  = td[j].p || td[j].a || '';
-								r[isParty[j] ? 'parties' : 'meta'][key] = value.content || value;
+								value = value.content || value;
+								if(isParty[j]) value = parseInt(value) || null;
+								r[isParty[j] ? 'parties' : 'meta'][key] = value;
 							}
 						}
 						results.push(r);
