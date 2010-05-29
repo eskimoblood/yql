@@ -39,7 +39,7 @@
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}},
 							dateString = td[dateColumn].p.split('.'),
-							date = dateString[2] + '.' + dateString[1] + '.' + dateString[0];
+							date  =new Date (dateString[2] + ',' + (dateString[1] -1) + ',' + dateString[0]).toString();
 							r.date = date;
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];

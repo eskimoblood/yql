@@ -6,21 +6,49 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title>untitled</title>
-	<script type="text/javascript">
-		function cbfunc(json){
-			console.log(json);
-			
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	    <script type="text/javascript">
+	      google.load("visualization", "1", {packages:["corechart"]});
+	      google.setOnLoadCallback(loadJSONP);
+	      
+	function loadJSONP() {
+	      	var jsonp = document.createElement('script');
+			jsonp.type = 'text/javascript'; 
+			jsonp.async = true;
+			jsonp.src = 'http://query.yahooapis.com/v1/public/yql?q=use%20%20%22http%3A%2F%2Fgithub.com%2Feskimoblood%2Fyql%2Fraw%2Fmaster%2Fsonntagsfrage.xml%22%3B%20select%20*%20from%20sonntagsfrage%20where%20bundesland%3D%22berlin%22&format=json&callback=drawGraph';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(jsonp, s);
+	}
+	function drawGraph (json) {
+		console.log(json)
+		var data = new google.visualization.DataTable(),
+			parties = ['SPD', 'CDU', 'GRÜNE', 'FDP', 'LINKE'],
+			result = json.query.results.result.result,
+			length = result.length;
+		data.addColumn('datetime', 'Datum');
+		for(var i=0; i<5; i++) {
+			data.addColumn('number', parties[i]);	
 		}
-	</script>
-	<script type="text/javascript" src="http://query.yahooapis.com/v1/public/yql?q=use%20%20%22http%3A%2F%2Fgithub.com%2Feskimoblood%2Fyql%2Fraw%2Fmaster%2Fsonntagsfrage.xml%22%3B%20select%20*%20from%20sonntagsfrage%20where%20bundesland%3D%22berlin%22&format=json&callback=cbfunc">
+		data.addRows(length);
+		for(i=0; i < length; i++) {
+			data.setValue(i, 0, result[i].date);
+			var resultParties = result[i].parties
+			for(var j=0; j<5; j++) {
+				data.setValue(i, j+1, parseInt(resultParties[parties[j]]));
+			}
+		}
+		console.log(data)
+		var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+		        chart.draw(data, {width: 400, height: 240, title: 'Company Performance'});    
+	}
+	   </script>
 	
-	</script>
 
 	
 </head>
 
 <body>
-
+<div id="chart_div"></div>
 
 </body>
 </html>
