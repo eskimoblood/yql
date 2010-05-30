@@ -28,7 +28,7 @@
 						isParty;
 
 					for (i = 0; i < l; i++) {
-						key = ths[i].p.toString();
+						key = getContent(ths[i]);
 						if(key == 'GR\ufffdNE') key = 'GRÜNE';
 						keys.push(key);
 						isParty.push(key.toLowerCase().match(/spd|cdu|fdp|grüne|linke|sonstige/) != null);
@@ -39,13 +39,12 @@
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}};
 							dateString = (td[0].colspan == 4 ? (td[0].p || td[0].a.content).match(/[0-9].*/g)[0] : td[dateColumn].p).split('.');
-						y.log(dateString[2] +' ' +  (dateString[1] -1) +' ' +  dateString[0])
 						r.date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
 						var positionOffset = 0;
 						for (j = 0, k = td.length; j < k; j++) {
 
 							if (td[j].colspan) {	
-								var string = td[j].p || td[j].a.content;
+								var string = getContent(td[j]);
 								if(metadata) r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
@@ -56,7 +55,7 @@
 							var key = keys[position];
 						
 							if (position != dateColumn && key != '\u00a0' && (metadata || isParty[position])) {
-								var value  = td[j].p || td[j].a || '';
+								var value  = getContent(td[j]);
 								value = value.content || value;
 								if (isParty[position]) value = parseFloat(value.replace(/,/, '.')) || null;
 								r[isParty[position] ? 'parties' : 'meta'][key] = value;
@@ -65,6 +64,9 @@
 						results.push(r);
 					}
 					return {result:results};
+					function getContent(element) {
+						return element.p || element.a || ''
+					}
 				}
 
 				var grabData = function() {
