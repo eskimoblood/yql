@@ -57,7 +57,7 @@
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
-								partyPosition = 4;
+								partyPosition = j+ 4;
 							}
 						
 							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[partyPosition])) {
