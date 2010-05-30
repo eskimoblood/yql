@@ -44,7 +44,7 @@
 		data.addRows(rows);
 		console.log(data)
 		var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
-		        chart.draw(data, {displayAnnotations: true});
+		        chart.draw(data, {displayAnnotations: true,displayAnnotationsFilter:true, colors: ['#EC241F', '#373737', '#7EA858', '#92C4F1', 'A8588B']});
 	}
 	   </script>
 	

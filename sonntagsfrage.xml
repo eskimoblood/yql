@@ -39,6 +39,7 @@
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}},
 							dateString = td[dateColumn].p.split('.'),
+							log(dateString)
 							date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
 							r.date = date;
 						for (j = 0, k = td.length; j < k; j++) {
