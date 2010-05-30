@@ -38,7 +38,7 @@
 					for (i = 0, l= tds.length; i<l; i++) {
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}};
-							y.log(td[0].p || td[0].a)
+							y.log((td[0].p || td[0].a).match(/[0-9].*/g)[0])
 							dateString = (td[0].colspan == 4 ? (td[0].p || td[0].a).match(/[0-9].*/g)[0] : td[dateColumn].p).split('.');
 
 						r.date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
