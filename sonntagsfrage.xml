@@ -55,10 +55,10 @@
 							var position = j + positionOffset;
 							var key = keys[position];
 						
-							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[position])) {
+							if (position != dateColumn && key != '\u00a0' && (metadata || isParty[position])) {
 								var value  = td[j].p || td[j].a || '';
 								value = value.content || value;
-								if (isParty[position]) value = parseInt(value) || null;
+								if (isParty[position]) value = parseFloat(value.replace(/,/, '.')) || null;
 								r[isParty[position] ? 'parties' : 'meta'][key] = value;
 							}
 						}
