@@ -40,7 +40,7 @@
 							r  = {parties: {}, meta: {}},
 							dateString;
 						if(td[0].colspan == 4) {
-							dateString = td[0].p.match(/[0-9]./)
+							dateString = td[0].p.match(/[0-9]./g)
 						} else {
 							dateString = td[dateColumn].p.split('.')
 						}
