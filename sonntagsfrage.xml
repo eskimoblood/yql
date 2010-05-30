@@ -58,13 +58,14 @@
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
 								position = j+ 4;
+								y.log(position);
 							}
 							var key = keys[position];
 						
 							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[position])) {
 								var value  = td[j].p || td[j].a || '';
 								value = value.content || value;
-								if(isParty[position]) value = parseInt(value) || null;
+								if (isParty[position]) value = parseInt(value) || null;
 								r[isParty[position] ? 'parties' : 'meta'][key] = value;
 							}
 						}
