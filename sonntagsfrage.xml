@@ -62,7 +62,7 @@
 					}
 					return {result:results};
 					function getContent(element) {
-					var content = element.p || element.a.content || '';
+					var content = element.p || element.a ? element.a.content: '' || '';
 					return (typeof content == 'string') ?  content : '';
 					}
 				}
