@@ -47,19 +47,19 @@
 						}
 						dateString = dateString.split('.');
 						r.date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
-	
+						var positionOffset = 0;
 						for (j = 0, k = td.length; j < k; j++) {
 						
-							var position = j;
+							
 							if (td[j].colspan) {	
 								var string = td[j].p;
 								if(metadata) r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
-								position = j+ 5;
-								y.log(keys[position]);
+								positionOffset = 5;
 							}
+							var position = j + positionOffset;
 							var key = keys[position];
 						
 							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[position])) {
