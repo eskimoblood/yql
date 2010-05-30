@@ -55,8 +55,9 @@
 							key = keys[j];
 	
 							if (td[j].colspan) {
+							y.log(j + ' ' + td[j].colspan);
 								j += parseInt(td[j].colspan);
-									y.log(j + ' ' + td[j].colspan);
+									
 								var string = td[j].p;
 								if(metadata) r.meta = {Quelle: string};
 								string = string.split(' ');
