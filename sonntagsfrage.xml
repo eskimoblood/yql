@@ -62,8 +62,8 @@
 					}
 					return {result:results};
 					function getContent(element) {
-					y.log(element.p || element.a.content || '')
-						return element.p || element.a.content || '';
+					var content = element.p || element.a.content || '';
+					return (typeof content != 'string')?  content : '';
 					}
 				}
 
