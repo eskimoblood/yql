@@ -63,7 +63,7 @@
 					return {result:results};
 					function getContent(element) {
 					var content = element.p || element.a.content || '';
-					return (typeof content != 'string')?  content : '';
+					return (typeof content == 'string') ?  content : '';
 					}
 				}
 
