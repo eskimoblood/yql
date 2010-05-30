@@ -38,39 +38,33 @@
 					for (i = 0, l= tds.length; i<l; i++) {
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}},
-							dateString,
-							offset = 0;
+							dateString;
+							
 						if(td[0].colspan == 4) {
-							dateString = td[0].p.match(/[0-9].*/g)[0];
-							
+							dateString = td[0].p.match(/[0-9].*/g)[0];	
 						} else {
-							dateString = td[dateColumn].p
+							dateString = td[dateColumn].p;
 						}
-						dateString = dateString.split('.')
-					
-							date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
-							
-							r.date = date;
-						for (j = offset, k = td.length; j < k; j++) {
-							key = keys[j];
+						dateString = dateString.split('.');
+						r.date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
 	
-							if (td[j].colspan) {
-							y.log(j + ' ' + td[j].colspan);
-								j += parseInt(td[j].colspan);
-									
+						for (j = 0, k = td.length; j < k; j++) {
+							key = keys[j];
+							var partyPosition = j;
+							if (td[j].colspan) {	
 								var string = td[j].p;
 								if(metadata) r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
-				
+								partyPosition = 4;
 							}
 						
-							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[j])) {
+							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[partyPosition])) {
 								var value  = td[j].p || td[j].a || '';
 								value = value.content || value;
-								if(isParty[j]) value = parseInt(value) || null;
-								r[isParty[j] ? 'parties' : 'meta'][key] = value;
+								if(isParty[partyPosition]) value = parseInt(value) || null;
+								r[isParty[partyPosition] ? 'parties' : 'meta'][key] = value;
 							}
 						}
 						results.push(r);
