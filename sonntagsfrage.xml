@@ -65,7 +65,7 @@
 					}
 					return {result:results};
 					function getContent(element) {
-						return element.p || element.a || ''
+						return element.p || element.a.content || '';
 					}
 				}
 
