@@ -50,7 +50,7 @@
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
-								positionOffset = td[j].colspan - 1;
+								positionOffset = td[j].colspan ;
 							}
 							var position = j + positionOffset;
 							var key = keys[position];
