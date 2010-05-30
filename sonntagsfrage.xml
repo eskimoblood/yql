@@ -40,12 +40,11 @@
 							r  = {parties: {}, meta: {}},
 							dateString;
 						if(td[0].colspan == 4) {
-							dateString = td[0].p.match(/[0-9]./)[0]
+							dateString = td[0].p.match(/[0-9]./)
 						} else {
-							dateString = td[dateColumn].p
+							dateString = td[dateColumn].p.split('.')
 						}
 						y.log(dateString);
-							dateString = dateString.split('.'),
 							date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
 							
 							r.date = date;
