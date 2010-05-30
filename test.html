@@ -15,7 +15,7 @@
 	      	var jsonp = document.createElement('script');
 			jsonp.type = 'text/javascript'; 
 			jsonp.async = true;
-			jsonp.src = 'http://query.yahooapis.com/v1/public/yql?q=use%20%20%22http%3A%2F%2Fgithub.com%2Feskimoblood%2Fyql%2Fraw%2Fmaster%2Fsonntagsfrage.xml%22%3B%20select%20*%20from%20sonntagsfrage%20where%20bundesland%3D%22brandenburg%22&format=json&callback=drawGraph';
+			jsonp.src = 'http://query.yahooapis.com/v1/public/yql?q=use%20%20%22http%3A%2F%2Fgithub.com%2Feskimoblood%2Fyql%2Fraw%2Fmaster%2Fsonntagsfrage.xml%22%3B%20select%20*%20from%20sonntagsfrage%20where%20bundesland%3D%22baden-wuerttemberg%22&format=json&callback=drawGraph';
 			var s = document.getElementsByTagName('script')[0];
 			s.parentNode.insertBefore(jsonp, s);
 	}
@@ -30,10 +30,14 @@
 		for(var i = 0; i < 5; i++) data.addColumn('number', parties[i]);	
 
 		for (i = 0; i < result.length; i++) {
-			var resultParties = result[i].parties,
-				row = [new Date(result[i].date)];
-			for(var j = 0; j < 5; j++) row.push(parseInt(resultParties[parties[j]]));
-			rows.push(row)	
+			var date = result[i].date;
+			if(date != 'Invalid Date') {
+				var resultParties = result[i].parties,
+					row = [new Date(date)];
+				for(var j = 0; j < 5; j++) row.push(parseInt(resultParties[parties[j]]));
+				rows.push(row)
+			}
+				
 		}
 		data.addRows(rows);
 		chart.draw(data, {displayAnnotations: true,displayAnnotationsFilter:true, colors: ['#EC241F', '#373737', '#7EA858', '#92C4F1', 'A8588B']});
