@@ -62,7 +62,6 @@
 					}
 					return {result:results};
 					function getContent(element) {
-					y.log(element)
 					var content = element.p || (element.a ? element.a.content : '') ;
 					return (typeof content == 'string') ?  content : '';
 					}
