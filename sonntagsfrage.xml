@@ -38,10 +38,16 @@
 					for (i = 0, l= tds.length; i<l; i++) {
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}},
-							dateString = td[dateColumn].p.split('.'),
-							
+							dateString;
+						if(td[0].colspan == 4) {
+							dateString = td[0].p.match(/[0-9]./)[0]
+						} else {
+							dateString = td[dateColumn].p
+						}
+						y.log(dateString);
+							dateString = dateString.split('.'),
 							date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
-							y.log(td[0].colspan);
+							
 							r.date = date;
 						for (j = 0, k = td.length; j < k; j++) {
 							key = keys[j];
