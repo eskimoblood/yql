@@ -44,7 +44,7 @@
 						for (j = 0, k = td.length; j < k; j++) {
 
 							if (td[j].colspan) {	
-								var string = td[j].p;
+								var string = td[j].p || td[j].a.content;
 								if(metadata) r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
