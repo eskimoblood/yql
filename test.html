@@ -24,27 +24,20 @@
 		var data = new google.visualization.DataTable(),
 			parties = ['SPD', 'CDU', 'GRÜNE', 'FDP', 'LINKE'],
 			result = json.query.results.result.result,
-			length = result.length;
+			rows = [],
+			chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));;
 		data.addColumn('date', 'Datum');
-		for(var i=0; i<5; i++) {
+		for(var i = 0; i < 5; i++) {
 			data.addColumn('number', parties[i]);	
 		}
-		var rows = [];
-		for(i=length-1; i > -1; i--) {
-			if(result[i].date != 'Invalid Date') {
-				var resultParties = result[i].parties;
-				var row = [new Date(result[i].date)];
-				for(var j=0; j<5; j++) {
-					var value =  parseInt(resultParties[parties[j]]);
-				 	row.push(value);
-				}
-				rows.push(row)
-			}
+		for (i = 0; i < result.length; i++) {
+			var resultParties = result[i].parties,
+				row = [new Date(result[i].date)];
+			for(var j = 0; j < 5; j++) row.push(parseInt(resultParties[parties[j]]));
+			rows.push(row)	
 		}
 		data.addRows(rows);
-		console.log(data)
-		var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
-		        chart.draw(data, {displayAnnotations: true,displayAnnotationsFilter:true, colors: ['#EC241F', '#373737', '#7EA858', '#92C4F1', 'A8588B']});
+		chart.draw(data, {displayAnnotations: true,displayAnnotationsFilter:true, colors: ['#EC241F', '#373737', '#7EA858', '#92C4F1', 'A8588B']});
 	}
 	   </script>
 	
