@@ -7,8 +7,8 @@
 
 	<title>untitled</title>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-	    <script type="text/javascript">
-	      google.load("visualization", "1", {packages:["corechart"]});
+	<script type="text/javascript">
+	      google.load('visualization', '1', {'packages':['annotatedtimeline']});
 	      google.setOnLoadCallback(loadJSONP);
 	      
 	function loadJSONP() {
@@ -25,26 +25,26 @@
 			parties = ['SPD', 'CDU', 'GRÜNE', 'FDP', 'LINKE'],
 			result = json.query.results.result.result,
 			length = result.length;
-		data.addColumn('string', 'Datum');
+		data.addColumn('date', 'Datum');
 		for(var i=0; i<5; i++) {
 			data.addColumn('number', parties[i]);	
 		}
-		data.addRows(length);
+		var rows = [];
 		for(i=length-1; i > -1; i--) {
 			if(result[i].date != 'Invalid Date') {
-			data.setValue(i, 0, result[i].date);
-			var resultParties = result[i].parties
-			for(var j=0; j<5; j++) {
-				var value =  parseInt(resultParties[parties[j]]);
-
-				if(value) 	data.setValue(i, j+1, value);
-			
-			}
+				var resultParties = result[i].parties;
+				var row = [new Date(result[i].date)];
+				for(var j=0; j<5; j++) {
+					var value =  parseInt(resultParties[parties[j]]);
+				 	row.push(value);
+				}
+				rows.push(row)
 			}
 		}
+		data.addRows(rows);
 		console.log(data)
-		var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-		        chart.draw(data, {width: 1000, height: 240, title: 'Company Performance', reverseAxis:true, pointSize: 1, lineSize:1});    
+		var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
+		        chart.draw(data, {displayAnnotations: true});
 	}
 	   </script>
 	
@@ -53,7 +53,7 @@
 </head>
 
 <body>
-<div id="chart_div"></div>
+<div id='chart_div' style='width: 1000px; height: 500px;'></div>
 
 </body>
 </html>
