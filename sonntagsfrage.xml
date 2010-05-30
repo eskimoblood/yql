@@ -49,22 +49,23 @@
 						r.date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
 	
 						for (j = 0, k = td.length; j < k; j++) {
-							key = keys[j];
-							var partyPosition = j;
+						
+							var position = j;
 							if (td[j].colspan) {	
 								var string = td[j].p;
 								if(metadata) r.meta = {Quelle: string};
 								string = string.split(' ');
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
-								partyPosition = j+ 4;
+								position = j+ 4;
 							}
+							var key = keys[position];
 						
-							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[partyPosition])) {
+							if (j != dateColumn && key != '\u00a0' && (metadata || isParty[position])) {
 								var value  = td[j].p || td[j].a || '';
 								value = value.content || value;
-								if(isParty[partyPosition]) value = parseInt(value) || null;
-								r[isParty[partyPosition] ? 'parties' : 'meta'][key] = value;
+								if(isParty[position]) value = parseInt(value) || null;
+								r[isParty[position] ? 'parties' : 'meta'][key] = value;
 							}
 						}
 						results.push(r);
