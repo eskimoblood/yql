@@ -58,7 +58,7 @@
 								string = string[string.length-1].split('.');
 								date = 'D' + string[2] + '.' + string[1] + '.' + string[0];
 								position = j+ 4;
-								y.log(position);
+								y.log(keys[position]);
 							}
 							var key = keys[position];
 						
