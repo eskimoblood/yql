@@ -38,9 +38,12 @@
 					for (i = 0, l= tds.length; i<l; i++) {
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}},
-							dateString;
+							dateString,
+							offset = 0;
 						if(td[0].colspan == 4) {
-							dateString = td[0].p.match(/[0-9].*/g)[0]
+							offset=4;
+							dateString = td[0].p.match(/[0-9].*/g)[0];
+							
 						} else {
 							dateString = td[dateColumn].p
 						}
@@ -49,7 +52,7 @@
 							date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
 							
 							r.date = date;
-						for (j = 0, k = td.length; j < k; j++) {
+						for (j = offset, k = td.length; j < k; j++) {
 							key = keys[j];
 	
 							if (td[j].colspan) {
