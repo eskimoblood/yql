@@ -38,7 +38,7 @@
 					for (i = 0, l= tds.length; i<l; i++) {
 						var td = tds[i].td,
 							r  = {parties: {}, meta: {}};
-							dateString = (td[0].colspan == 4 ? (td[0].p || td[0].a.content).match(/[0-9].*/g)[0] : td[dateColumn].p).split('.');
+							dateString = (td[0].colspan == 4 ? (getContent(td[0])).match(/[0-9].*/g)[0] : getContent(td[dateColumn])).split('.');
 						r.date  = new Date (dateString[2] ,  (dateString[1] -1) , dateString[0]).toString();
 						var positionOffset = 0;
 						for (j = 0, k = td.length; j < k; j++) {
