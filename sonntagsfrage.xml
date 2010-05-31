@@ -33,8 +33,10 @@
 						if(key == 'GR\ufffdNE') key = 'GRÜNE';
 						keys.push(key);
 						if(key.toLowerCase().match(/spd|cdu|csu|fdp|grüne|linke|sonstige/) != null) {
-							isParty.push();
+							isParty.push(true);
 							partyList.push(key);
+						} else {
+							isParty.push(false);
 						}
 						
 						if(ths[i].p === 'Datum') dateColumn = i;
