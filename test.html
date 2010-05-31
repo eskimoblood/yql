@@ -9,40 +9,67 @@
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<script type="text/javascript">
 	      google.load('visualization', '1', {'packages':['annotatedtimeline']});
-	      google.setOnLoadCallback(loadJSONP);
-	      
-	function loadJSONP() {
-	      	var jsonp = document.createElement('script');
-			jsonp.type = 'text/javascript'; 
-			jsonp.async = true;
-			jsonp.src = 'http://query.yahooapis.com/v1/public/yql?q=use%20%20%22http%3A%2F%2Fgithub.com%2Feskimoblood%2Fyql%2Fraw%2Fmaster%2Fsonntagsfrage.xml%22%3B%20select%20*%20from%20sonntagsfrage%20where%20bundesland%3D%22baden-wuerttemberg%22&format=json&callback=drawGraph';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(jsonp, s);
-	}
-	function drawGraph (json) {
-		console.log(json)
-		var data = new google.visualization.DataTable(),
-			parties = ['SPD', 'CDU', 'GRÜNE', 'FDP', 'LINKE'],
-			result = json.query.results.result.result,
-			rows = [],
-			chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));;
-		data.addColumn('date', 'Datum');
-		for(var i = 0; i < 5; i++) data.addColumn('number', parties[i]);	
-
-		for (i = 0; i < result.length; i++) {
-			var date = result[i].date;
-			if(date != 'Invalid Date') {
-				var resultParties = result[i].parties,
-					row = [new Date(date)];
-				for(var j = 0; j < 5; j++) row.push(parseInt(resultParties[parties[j]]));
-				rows.push(row)
+	      google.setOnLoadCallback(ready);
+		var cache = {};
+		function ready() {
+			var select = document.getElementById('bundeslaender');
+			if (select.addEventListener) {
+				select.addEventListener('change',loadJSONP,false);
+			} else if (select.attachEvent) {
+				select.attachEvent('onchange', loadJSONP);
 			}
-				
+			if(select.dispatchEvent) {
+				var event = e = document.createEvent("UIEvents");
+				e.initUIEvent("change", true, true, window, 1); 
+				select.dispatchEvent(event)
+			} else if(select.fireEvent) {
+				select.fireEvent('change');
+			}
+		} 
+	     
+		function loadJSONP(event) {
+			var select = (event.target),
+			bundesland = select.options[select.selectedIndex].value,
+			cachedResult = cache[bundesland];
+			if (cachedResult) {
+				drawGraph(cachedResult)
+			} else {
+				var jsonp = document.createElement('script');
+				jsonp.type = 'text/javascript'; 
+				jsonp.async = true;
+				jsonp.src = 'http://query.yahooapis.com/v1/public/yql?q=use%20%20%22http%3A%2F%2Fgithub.com%2Feskimoblood%2Fyql%2Fraw%2Fmaster%2Fsonntagsfrage.xml%22%3B%20select%20*%20from%20sonntagsfrage%20where%20bundesland%3D%22' + bundesland+ '%22&format=json&callback=drawGraph';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(jsonp, s);
+			}
+			
 		}
-		data.addRows(rows);
-		chart.draw(data, {displayAnnotations: true,displayAnnotationsFilter:true, colors: ['#EC241F', '#373737', '#7EA858', '#92C4F1', 'A8588B']});
-	}
-	   </script>
+	
+		function drawGraph (json) {
+			
+			var results = json.query.results.result,
+				data = new google.visualization.DataTable(),
+				parties = results.partyList,
+				result = results.result,
+				rows = [],
+				chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
+			cache[results.bundesland] = json;
+			data.addColumn('date', 'Datum');
+			for(var i = 0; i < 5; i++) data.addColumn('number', parties[i]);	
+
+			for (i = 0; i < result.length; i++) {
+				var date = result[i].date;
+				if(date != 'Invalid Date') {
+					var resultParties = result[i].parties,
+						row = [new Date(date)];
+					for(var j = 0; j < 5; j++) row.push(parseInt(resultParties[parties[j]]));
+					rows.push(row)
+				}
+				
+			}
+			data.addRows(rows);
+			chart.draw(data, {displayAnnotations: true,displayAnnotationsFilter:true, colors: ['#373737', '#EC241F', '#7EA858', '#92C4F1', 'A8588B']});
+		}
+	</script>
 	
 
 	
@@ -50,6 +77,23 @@
 
 <body>
 <div id='chart_div' style='width: 1000px; height: 500px;'></div>
-
+<select id="bundeslaender">
+	<option value="baden-wuerttemberg" selected="selected">Baden-Würtemberg</option>
+	<option value="bayern">Bayern</option>
+	<option value="berlin">Berlin</option>
+	<option value="brandenburg">Brandenburg</option>
+	<option value="bremen" >Bremen</option>
+	<option value="hamburg">Hamburg</option>
+	<option value="hessen">Hessen</option>
+	<option value="mecklenburg-vorpommern">Mecklenburg-Vorpommern</option>
+	<option value="niedersachsen">Niedersachsen</option>
+	<option value="nrw">Nordrhein-Westfalen</option>
+	<option value="rheinland-pfalz">Rheinland-Pfalz</option>
+	<option value="saarland">Saarland</option>
+	<option value="sachsen">Sachsen</option>
+	<option value="sachsen-anhalt">Sachsen-Anhalt</option>
+	<option value="schleswig-holstein">Schleswig-Holstein</option>
+	<option value="thueringen">Thüringen</option>
+</select>
 </body>
 </html>
