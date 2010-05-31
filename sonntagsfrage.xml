@@ -67,7 +67,7 @@
 						}
 						results.push(r);
 					}
-					return {result:results, partyList: partyList};
+					return {result:results, partyList: partyList, bundesland: bundesland};
 					function getContent(element) {
 					var content = element.p || (element.a ? element.a.content : '') ;
 					return (typeof content == 'string') ?  content : '';
